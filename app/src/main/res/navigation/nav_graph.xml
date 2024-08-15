@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.syntax.hemmerich.batch17firebase.ui.LoginFragment"
+        android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/passwordResetFragment"
+        android:name="com.syntax.hemmerich.batch17firebase.ui.PasswordResetFragment"
+        android:label="PasswordResetFragment" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.syntax.hemmerich.batch17firebase.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.syntax.hemmerich.batch17firebase.ui.RegisterFragment"
+        android:label="RegisterFragment" />
+</navigation>

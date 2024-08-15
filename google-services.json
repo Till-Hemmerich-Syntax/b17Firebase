@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "601180822358",
+    "project_id": "batch17superfirebaseapp",
+    "storage_bucket": "batch17superfirebaseapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601180822358:android:b1a26d801ab92910b314f7",
+        "android_client_info": {
+          "package_name": "com.syntax.hemmerich.batch17firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALxELbJBYvD_uP-0zaZgMuU7P5rJNKKdw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
