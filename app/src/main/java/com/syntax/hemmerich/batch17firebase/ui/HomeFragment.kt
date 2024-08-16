@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.syntax.hemmerich.batch17firebase.R
@@ -16,6 +17,12 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentHomeBinding
     private val mainViewModel: MainViewModel by activityViewModels()
+
+    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){
+        if(it != null){
+            mainViewModel.uploadImage(it)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +40,17 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.tvEmail.text = mainViewModel.currentUser.value?.email ?: ""
+
         binding.btnLogout.setOnClickListener {
             mainViewModel.logout()
             findNavController().navigate(R.id.loginFragment)
         }
+        binding.btnUploadImage.setOnClickListener {
+            getContent.launch("images/*")
+        }
+
     }
 
 
