@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.syntax.hemmerich.batch17firebase.R
 import com.syntax.hemmerich.batch17firebase.databinding.FragmentHomeBinding
 import com.syntax.hemmerich.batch17firebase.databinding.FragmentLoginBinding
+import com.syntax.hemmerich.batch17firebase.model.Profile
 
 
 class HomeFragment : Fragment() {
@@ -23,10 +25,10 @@ class HomeFragment : Fragment() {
             mainViewModel.uploadImage(it)
         }
     }
+    private var profileLink : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -41,17 +43,36 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvEmail.text = mainViewModel.currentUser.value?.email ?: ""
-
-        binding.btnLogout.setOnClickListener {
+        binding.btLogout.setOnClickListener {
             mainViewModel.logout()
             findNavController().navigate(R.id.loginFragment)
         }
-        binding.btnUploadImage.setOnClickListener {
-            getContent.launch("images/*")
+        binding.btUpdateImage.setOnClickListener {
+            getContent.launch("image/*")
+        }
+
+        binding.btUpdate.setOnClickListener {
+            val firstName = binding.tietFirstName.text.toString()
+            val lastName = binding.tietLastName.text.toString()
+            val phoneNumber = binding.tietPhoneNumber.text.toString()
+
+            mainViewModel.updateProfile(Profile(firstName,lastName,phoneNumber,profileLink))
+        }
+
+        mainViewModel.profileRef.addSnapshotListener { snapShot, error ->
+            if(error == null && snapShot != null){
+                val updateProfile = snapShot.toObject(Profile::class.java)
+                binding.tietFirstName.setText(updateProfile?.firstName)
+                binding.tietLastName.setText(updateProfile?.lastName)
+                binding.tietPhoneNumber.setText(updateProfile?.phoneNumber)
+                if(updateProfile?.profilePicture != ""){
+                    profileLink = updateProfile?.profilePicture!!
+                    binding.ivProfilePicture.load(profileLink)
+
+                }
+            }
         }
 
     }
-
 
 }
