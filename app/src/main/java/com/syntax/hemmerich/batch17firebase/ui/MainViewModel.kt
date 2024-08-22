@@ -76,11 +76,13 @@ class MainViewModel : ViewModel() {
             }
     }
 
+    //Holt sich denn aktuellen Auth user und holen uns die Referenze
     private fun setUpUserEnv(){
         _currentUser.value = firebaseAuth.currentUser
         profileRef = firebaseFireStore.collection("profile").document(firebaseAuth.currentUser?.uid!!)
     }
 
+    //Initialisiert ein neues leeres Profile Doc im Firestore
     private fun setupNewProfile(){
         profileRef.set(Profile())
     }
@@ -91,6 +93,7 @@ class MainViewModel : ViewModel() {
 
     }
 
+    //Updated das Profile im Firestore
     fun updateProfile(profile: Profile){
         profileRef.set(profile)
     }
@@ -113,6 +116,7 @@ class MainViewModel : ViewModel() {
     }
 
     private fun setImage(uri: Uri){
+        //Updaten des Image Pfades im Firestore :)
         profileRef.update("profilePicture",uri.toString())
     }
 }
